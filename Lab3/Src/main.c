@@ -62,78 +62,78 @@ void TIM2_IRQHandler(void);
   */
 int main(void)
 {	
-	HAL_Init();
-	
-	//Timers
-	SystemClock_Config(); 
-	RCC->AHBENR |= RCC_AHBENR_GPIOCEN | RCC_AHBENR_GPIOAEN; 
-	RCC->APB1ENR |= RCC_APB1ENR_TIM2EN | RCC_APB1ENR_TIM3EN; 
-	
-	//Setting up the timer two
-	uint32_t T_target = 8000; 
-	uint32_t F_target = 4;
-	
-	TIM2->ARR = 250;
-	TIM2->PSC = 7999;
-	
-	TIM2->DIER |= (1 << 0);
-	TIM2->CR1 |= 1;
-	
-	//Timer Three
-	TIM3->ARR = 125;
-	TIM3->PSC = 39;
-	
-	
-	//CCMR
-	TIM3->CCMR1 = ((6 << 12)| (7 << 4) | (1 << 11) | (1 << 3));
-	TIM3->CCER = ((TIM_CCER_CC1E) | (TIM_CCER_CC2E));;
-	
-	TIM3->CR1 |= 1;
+HAL_Init();
 
-	TIM3->CCR1 = 25;
-	TIM3->CCR2 = 25;
-	
-	//LEDS
-	//Green
-	GPIOC->MODER &= ~(1 << 19);
-  GPIOC->MODER |= (1 << 18);
-	//Orange
-	GPIOC->MODER &= ~(1 << 17);
-  GPIOC->MODER |= (1 << 16);
-	
-	GPIOC->OTYPER &= ~(1 << 8);
-  GPIOC->OTYPER &= ~(1 << 9);
-	
-	GPIOC->OSPEEDR &= ~(1 << 16);
-	GPIOC->OSPEEDR &= ~(1 << 17);
-  GPIOC->OSPEEDR &= ~(1 << 18);
-	GPIOC->OSPEEDR &= ~(1 << 19);
+//Timers
+SystemClock_Config(); 
+RCC->AHBENR |= RCC_AHBENR_GPIOCEN | RCC_AHBENR_GPIOAEN; 
+RCC->APB1ENR |= RCC_APB1ENR_TIM2EN | RCC_APB1ENR_TIM3EN; 
 
-	GPIOC->PUPDR &= ~(1 << 16);
-  GPIOC->PUPDR &= ~(1 << 17);
-  GPIOC->PUPDR &= ~(1 << 18);
-  GPIOC->PUPDR &= ~(1 << 19);
-	
-	//Blue and Red
-	GPIO_InitTypeDef redAndBlue = {GPIO_PIN_6 | GPIO_PIN_7,
-																 GPIO_MODE_AF_PP,
-																 GPIO_SPEED_FREQ_LOW,
-																 GPIO_NOPULL 
-	};
-	HAL_GPIO_Init(GPIOC, &redAndBlue);
-	
-	NVIC_EnableIRQ(15);
+//Setting up the timer two
+uint32_t T_target = 8000; 
+uint32_t F_target = 4;
 
-	//Green to high
-	GPIOC->ODR |= (1 << 9);
-	
-  while (1)
-  {
-    /* USER CODE END WHILE */
+TIM2->ARR = 250;
+TIM2->PSC = 7999;
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+TIM2->DIER |= (1 << 0);
+TIM2->CR1 |= 1;
+
+//Timer Three
+TIM3->ARR = 125;
+TIM3->PSC = 39;
+
+
+//CCMR
+TIM3->CCMR1 = ((6 << 12)| (7 << 4) | (1 << 11) | (1 << 3));
+TIM3->CCER = ((TIM_CCER_CC1E) | (TIM_CCER_CC2E));
+	
+TIM3->CR1 |= 1;
+
+TIM3->CCR1 = 25;
+TIM3->CCR2 = 25;
+
+//LEDS
+//Green
+GPIOC->MODER &= ~(1 << 19);
+GPIOC->MODER |= (1 << 18);
+//Orange
+GPIOC->MODER &= ~(1 << 17);
+GPIOC->MODER |= (1 << 16);
+
+GPIOC->OTYPER &= ~(1 << 8);
+GPIOC->OTYPER &= ~(1 << 9);
+
+GPIOC->OSPEEDR &= ~(1 << 16);
+GPIOC->OSPEEDR &= ~(1 << 17);
+GPIOC->OSPEEDR &= ~(1 << 18);
+GPIOC->OSPEEDR &= ~(1 << 19);
+
+GPIOC->PUPDR &= ~(1 << 16);
+GPIOC->PUPDR &= ~(1 << 17);
+GPIOC->PUPDR &= ~(1 << 18);
+GPIOC->PUPDR &= ~(1 << 19);
+
+//Blue and Red
+GPIO_InitTypeDef redAndBlue = {GPIO_PIN_6 | GPIO_PIN_7,
+			       GPIO_MODE_AF_PP,
+			       GPIO_SPEED_FREQ_LOW,
+			       GPIO_NOPULL 
+};
+HAL_GPIO_Init(GPIOC, &redAndBlue);
+
+NVIC_EnableIRQ(15);
+
+//Green to high
+GPIOC->ODR |= (1 << 9);
+	
+while (1)
+{
+/* USER CODE END WHILE */
+
+/* USER CODE BEGIN 3 */
+}
+/* USER CODE END 3 */
 }
 
 /**
