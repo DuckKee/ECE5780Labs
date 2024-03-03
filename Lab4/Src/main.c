@@ -67,8 +67,8 @@ int flag;
   */
 int main(void)
 {
-  HAL_Init();
-  SystemClock_Config();
+  	HAL_Init();
+  	SystemClock_Config();
 	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
 	RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
 	RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
@@ -87,13 +87,13 @@ int main(void)
 	GPIOB->MODER |= (2 << 22);	
 
 	//LEDs
-	GPIOC->MODER |= (1 << 12) | (1 << 18) | (1 << 14) | (1 << 16); // set bits 12 and 18 to general purpose output mode. These are connected to the green and red LEDs
-  GPIOC->MODER &= ~(1<< 13); // clear bits 15 and 13 for general purpose output mode. 
-  GPIOC->MODER &= ~(1 << 19);
-  GPIOC->MODER &= ~(1 << 15);
+	GPIOC->MODER |= (1 << 12) | (1 << 18) | (1 << 14) | (1 << 16); 
+  	GPIOC->MODER &= ~(1<< 13); // clear bits 15 and 13 for general purpose output mode. 
+ 	GPIOC->MODER &= ~(1 << 19);
+  	GPIOC->MODER &= ~(1 << 15);
 	GPIOC->MODER &= ~(1 << 17);
 
-  GPIOC->OTYPER &= ~(1 << 13); // set pins to push-pull output type. 0 is output push-pull (reset state)
+  	GPIOC->OTYPER &= ~(1 << 13); // set pins to push-pull output type
 	GPIOC->OTYPER &= ~(1 << 12);
 	GPIOC->OTYPER &= ~(1 << 18);
 	GPIOC->OTYPER &= ~(1 << 19);
@@ -102,12 +102,12 @@ int main(void)
 	GPIOC->OTYPER &= ~(1 << 16);
 	GPIOC->OTYPER &= ~(1 << 17);
 
-	GPIOC->OSPEEDR &= ~(1 << 12); // set pins to low speed. x0 is low speed.
+	GPIOC->OSPEEDR &= ~(1 << 12); // set pins to low speed
 	GPIOC->OSPEEDR &= ~(1 << 18);
 	GPIOC->OSPEEDR &= ~(1 << 14);
 	GPIOC->OSPEEDR &= ~(1 << 16);
 
-	GPIOC->PUPDR &= ~(1 << 13); // Set to no pull-up/down. 00 is no pull-up/pull-down
+	GPIOC->PUPDR &= ~(1 << 13); // Set to no pull-up/down
 	GPIOC->PUPDR &= ~(1 << 12);
 	GPIOC->PUPDR &= ~(1 << 18);
 	GPIOC->PUPDR &= ~(1 << 19);
@@ -120,8 +120,8 @@ int main(void)
 
 	char tempPart1;
 	flag = 0;
-  while (1)
-  {
+	while (1)
+	{
 		//sendChar('a');
 		//stringArray("abc");
 		//Part 1
@@ -157,8 +157,8 @@ int main(void)
 
 //Sending a char
 void sendChar(char symbol) {
-		while(!(USART3->ISR & (1 << 7))) {
-		}
+	while(!(USART3->ISR & (1 << 7))) {
+	}
 	
 	USART3->TDR = symbol;
 }
