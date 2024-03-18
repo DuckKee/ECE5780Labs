@@ -63,7 +63,7 @@ void SystemClock_Config(void);
 int main(void)
 {
 	//HAL_Init();
-  SystemClock_Config();
+	SystemClock_Config();
 	
 	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
 	RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
@@ -71,12 +71,12 @@ int main(void)
 	
 	//LEDs
 	GPIOC->MODER |= (1 << 12) | (1 << 18) | (1 << 14) | (1 << 16); //green and red LEDs
-  GPIOC->MODER &= ~(1<< 13);
-  GPIOC->MODER &= ~(1 << 19);
-  GPIOC->MODER &= ~(1 << 15);
+	GPIOC->MODER &= ~(1<< 13);
+	GPIOC->MODER &= ~(1 << 19);
+	GPIOC->MODER &= ~(1 << 15);
 	GPIOC->MODER &= ~(1 << 17);
-
-  GPIOC->OTYPER &= ~(1 << 13);
+	
+	GPIOC->OTYPER &= ~(1 << 13);
 	GPIOC->OTYPER &= ~(1 << 12);
 	GPIOC->OTYPER &= ~(1 << 18);
 	GPIOC->OTYPER &= ~(1 << 19);
@@ -84,12 +84,12 @@ int main(void)
 	GPIOC->OTYPER &= ~(1 << 15);
 	GPIOC->OTYPER &= ~(1 << 16);
 	GPIOC->OTYPER &= ~(1 << 17);
-
+	
 	GPIOC->OSPEEDR &= ~(1 << 12); 
 	GPIOC->OSPEEDR &= ~(1 << 18);
 	GPIOC->OSPEEDR &= ~(1 << 14);
 	GPIOC->OSPEEDR &= ~(1 << 16);
-
+	
 	GPIOC->PUPDR &= ~(1 << 13);
 	GPIOC->PUPDR &= ~(1 << 12);
 	GPIOC->PUPDR &= ~(1 << 18);
@@ -104,33 +104,33 @@ int main(void)
 	//Part 1
 	//Setting up PB11 and PB13
 	GPIOB->MODER &= ~(GPIO_MODER_MODER11_0 | GPIO_MODER_MODER13_0);
-  GPIOB->MODER |= (GPIO_MODER_MODER11_1 | GPIO_MODER_MODER13_1);
-
-  GPIOB->OTYPER |= GPIO_OTYPER_OT_11;
-  GPIOB->OTYPER |= GPIO_OTYPER_OT_13;
+	GPIOB->MODER |= (GPIO_MODER_MODER11_1 | GPIO_MODER_MODER13_1);
+	
+	GPIOB->OTYPER |= GPIO_OTYPER_OT_11;
+	GPIOB->OTYPER |= GPIO_OTYPER_OT_13;
 	
 	GPIOB->AFR[1] |= 1 << 12;
 	GPIOB->AFR[1] |= 5 << 20;
 	
 	//Setting up PB14
-  GPIOB->MODER |= GPIO_MODER_MODER14_0;
-  GPIOB->MODER &= ~(GPIO_MODER_MODER14_1);
-
-  GPIOB->OTYPER &= ~(GPIO_OTYPER_OT_14);
+	GPIOB->MODER |= GPIO_MODER_MODER14_0;
+	GPIOB->MODER &= ~(GPIO_MODER_MODER14_1);
+	
+	GPIOB->OTYPER &= ~(GPIO_OTYPER_OT_14);
 	
 	GPIOB->ODR |= GPIO_ODR_14;
 
 	//Setting up PC0
 	GPIOC->MODER |= GPIO_MODER_MODER0_0;
 	GPIOC->MODER &= ~(GPIO_MODER_MODER0_1);
-
+	
 	GPIOB->OTYPER &= ~(GPIO_OTYPER_OT_0);
-
+	
 	GPIOC->ODR |= GPIO_ODR_0;
 	
 	//PB15 on input mode
-  GPIOB->MODER &= ~(GPIO_MODER_MODER15_0 | GPIO_MODER_MODER15_1);
-	
+	GPIOB->MODER &= ~(GPIO_MODER_MODER15_0 | GPIO_MODER_MODER15_1);
+
 	//Setting up I2C2
 	I2C2->TIMINGR |= (1 << 28) | (0x13 << 20) | (0xF << 16) | (0x2 << 8) | (0x4 << 20);
 	
@@ -149,7 +149,7 @@ int main(void)
 	while(!((I2C2->ISR >> 1) & 1)){
 	}
 
-	//Write the address of the “WHO_AM_I”
+	//Write the address of the â€œWHO_AM_Iâ€
 	I2C2->TXDR |= 0x0F;
 
 	//Waiting for: TC flag
