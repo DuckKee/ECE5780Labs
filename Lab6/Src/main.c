@@ -62,20 +62,20 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-  HAL_Init();
-  SystemClock_Config();
+	HAL_Init();
+	SystemClock_Config();
 	
 	RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
 	RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
 	RCC->APB1ENR |= RCC_APB1ENR_DACEN;
-
+	
 	//Part 1
 	//Output mode for LEDs
 	GPIOC->MODER |= (1 << 12) | (1 << 18) | (1 << 14) | (1 << 16);
-  GPIOC->MODER &= ~(1<< 13);
-  GPIOC->MODER &= ~(1 << 19);
-  GPIOC->MODER &= ~(1 << 15);
+	GPIOC->MODER &= ~(1<< 13);
+	GPIOC->MODER &= ~(1 << 19);
+	GPIOC->MODER &= ~(1 << 15);
 	GPIOC->MODER &= ~(1 << 17);
 	
 	//Setting PC0 to analog/alt
@@ -93,21 +93,21 @@ int main(void)
 	ADC1->CFGR1 |= (0 << 11);
 	
 	ADC1->CHSELR |= (1 << 10);
-	
+		
 	//Calibration
-   if ((ADC1->CR & ADC_CR_ADEN) != 0) {
-       ADC1->CR |= ADC_CR_ADDIS;
+	if ((ADC1->CR & ADC_CR_ADEN) != 0) {
+		ADC1->CR |= ADC_CR_ADDIS;
 	 }
-   while ((ADC1->CR & ADC_CR_ADEN) != 0) {
+	while ((ADC1->CR & ADC_CR_ADEN) != 0) {
 	 }
-   ADC1->CFGR1 &= ~ADC_CFGR1_DMAEN; 
-   ADC1->CR |= ADC_CR_ADCAL;       
-   while ((ADC1->CR & ADC_CR_ADCAL) != 0) {
+		ADC1->CFGR1 &= ~ADC_CFGR1_DMAEN; 
+		ADC1->CR |= ADC_CR_ADCAL;       
+	while ((ADC1->CR & ADC_CR_ADCAL) != 0) {
 	 }
-	 
+		 
 	 ADC1->CR |= ADC_CR_ADEN;
-
-
+	
+	
 	int thres = 0;
 	int thres1 = 64;
 	int thres2 = 128;
@@ -125,7 +125,7 @@ int main(void)
 	DAC1->CR |= (1 << 5);
 	
 	DAC1->CR |= (1 << 0);
-		
+			
 	// Sine Wave: 8-bit, 32 samples/cycle
 	const uint8_t sine_table[32] = {127,151,175,197,216,232,244,251,254,251,244,
 	232,216,197,175,151,127,102,78,56,37,21,9,2,0,2,9,21,37,56,78,102};
